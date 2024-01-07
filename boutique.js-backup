@@ -1,0 +1,61 @@
+// Fonction pour mélanger un tableau de manière aléatoire
+function shuffleArray(array) {
+  for (let i = array.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [array[i], array[j]] = [array[j], array[i]];
+  }
+  return array;
+}
+
+// Récupérer les produits via Fetch
+fetch("products.json")
+  .then((response) => {
+    if (!response.ok) {
+      throw new Error(
+        `Status de la réponse: ${response.status} (${response.statusText})`
+      );
+    }
+    return response.json();
+  })
+  .then((data) => {
+    // Mélanger les produits de manière aléatoire
+    const shuffledProducts = shuffleArray(data);
+
+    // Afficher les produits dans le conteneur
+    const productContainer = document.getElementById("product-container");
+    shuffledProducts.forEach((product) => {
+      const productElement = document.createElement("span");
+      productElement.innerHTML = `
+      
+      <div class="Card">
+        <img class="imageCard" src=${product.image}>
+        <p>${product.title}</p>
+        <p>${product.price} €</p>
+        <p>Note: ${product.note}</p>
+        <button class="addPanier">Ajouter au panier</button>
+        
+      </div>      
+      `;
+      productContainer.appendChild(productElement);
+
+      // Fonction appelée lorsque la case à cocher est cochée ou décochée
+      function filtrerProduits() {
+        const checkboxChocolatLait =
+          document.getElementById("ch-chocolat-lait");
+        const chocolatLait = shuffledProducts.filter(
+          (product) => product.category.lait && checkboxChocolatLait.checked
+        );
+
+        // Afficher les produits filtrés dans la console ou effectuer d'autres actions
+        console.log(chocolatLait);
+      }
+
+      // Ajouter un gestionnaire d'événement à la case à cocher
+      document
+        .getElementById("ch-chocolat-lait")
+        .addEventListener("change", filtrerProduits);
+    });
+  })
+  .catch((error) => {
+    console.error("Erreur lors de la requête fetch:", error);
+  });

@@ -1,0 +1,172 @@
+@import url("https://fonts.googleapis.com/css?family=Fjalla+One");
+@import url("https://fonts.googleapis.com/css?family=Droid+Serif");
+
+
+a {
+    text-decoration: none;
+}
+
+body {
+    background-color: #B65F28;
+    height: 100vh;
+    margin: 0;
+    width: 100%;
+
+}
+
+.content {
+    background-color: #FFFFFF;
+}
+
+#header {
+    width: 100%;
+    height: 10%;
+}
+#footer {
+    width: 100%;
+    height: 10%;
+}
+#mainTitle {
+    font-size: 80px;
+    font-family: 'Fjalla One';
+    position: absolute;
+    top: 20%;
+    z-index: 2;
+    color: #ffffffc9;
+    background-color: #000000b5;
+    width: 100%;
+    text-align: center;
+}
+#carrousel {
+    width: 100%;
+    height: 80%;
+}
+
+#header, #footer, .content {
+    display: flex;
+    justify-content: space-between;
+}
+
+#header-right, #social-network {
+    display: flex;
+    align-items: center;
+}
+
+#header-right p {
+    margin-left: 20px;
+}
+
+#header img {
+    margin: 20px;
+}
+
+#social-network img {
+    margin: 5px;
+}
+
+#informations, #contact {
+    margin: 20px;
+}
+
+
+.text-style1 {
+    font-size: 20px;
+    font-family: 'Fjalla One';
+    
+}
+.text-style1 a {
+    color: #FFFFFF;
+}
+
+.text-style2 {
+    display: inline-block;
+    font-family: 'Droid Serif';
+    padding: 10px;
+    border: 2px solid;
+    position: absolute;
+    top: 60%;
+    z-index: 2;
+    left: 43%;
+    background-color: #55C0CF;
+}
+
+.text-style2 a {
+    color: #2C1E1E;
+}
+
+.text-style3 {
+    font-size: 18px;
+}
+.text-style3, .text-style4 {
+    color: #2C1E1E;
+    font-family: 'Droid Serif';
+}
+
+.zone-filtre {
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+#filter {
+    border: 2px solid;
+    border-color: #2C1E1E;
+    padding: 20px;
+}
+
+.table {
+    display: table;
+    padding: 10px;
+}
+
+/* Carroussel */
+.swiper {
+    width: 100%;
+    height: 100%;
+  }
+
+  .swiper-slide {
+    text-align: center;
+    font-size: 18px;
+    background: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .swiper-slide img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  #product-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    align-items: center;
+    align-content: center;
+  }
+
+  .Card {
+    height: 300px;
+    width: 250px;
+    display: flex;
+    flex-direction: column;
+    align-content: center;
+    align-items: center;
+    justify-content: center;
+    margin-left: 11%;
+    margin-right: 80px;
+    margin-top: 10%;
+    p {
+        margin: 3px;
+  }
+
+  .imageCard {
+    height: 50%;
+    max-width: 250px ;
+    max-height: 150px;
+    }
+   
+  }
