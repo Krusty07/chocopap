@@ -42,9 +42,10 @@ fetch("products.json")
       // Récupérer les valeurs des filtres
       const checkboxCategories =
         document.querySelectorAll(".category-checkbox");
-      const selectedCategories = Array.from(checkboxCategories)
+
+      const selectedValues = Array.from(checkboxCategories)
         .filter((checkbox) => checkbox.checked)
-        .map((checkbox) => checkbox.value);
+        .map((checkbox) => checkbox.id);
 
       const prixMin =
         parseFloat(document.getElementById("prix-min").value) || 0;
@@ -57,8 +58,8 @@ fetch("products.json")
       // Filtrer les produits en fonction des critères sélectionnés
       const produitsFiltres = shuffledProducts.filter((product) => {
         const categorieMatch =
-          selectedCategories.length === 0 ||
-          selectedCategories.some((category) => product.category[category]);
+          selectedValues.length === 0 ||
+          selectedValues.some((category) => product.category[category]);
         const prixMatch = product.price >= prixMin && product.price <= prixMax;
         const noteMatch = product.note >= noteMin && product.note <= noteMax;
 
