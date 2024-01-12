@@ -85,6 +85,9 @@ fetch("products.json")
         `;
         productContainer.appendChild(productElement);
       });
+
+      // Activer le bouton "Ajouter au panier" pour les produits filtrés
+      activerBoutonsAjouterPanier();
     }
 
     // Ajouter un gestionnaire d'événements à chaque case à cocher
@@ -104,7 +107,30 @@ fetch("products.json")
         element.addEventListener("input", filtrerProduits);
       }
     );
+
+    // Activer le bouton "Ajouter au panier" pour les produits initiaux
+    activerBoutonsAjouterPanier();
   })
   .catch((error) => {
     console.error("Erreur lors de la requête fetch:", error);
   });
+
+// Fonction pour activer les boutons "Ajouter au panier"
+function activerBoutonsAjouterPanier() {
+  const boutonsAjouterPanier = document.querySelectorAll(".addPanier");
+  boutonsAjouterPanier.forEach((bouton) => {
+    bouton.disabled = false;
+  });
+}
+
+// Fonction pour ouvrir le popup du panier
+function ouvrirPopupPanier() {
+  const popupPanier = document.getElementById("popup-panier");
+  popupPanier.style.display = "block";
+}
+
+// Fonction pour fermer le popup du panier
+function fermerPopupPanier() {
+  const popupPanier = document.getElementById("popup-panier");
+  popupPanier.style.display = "none";
+}

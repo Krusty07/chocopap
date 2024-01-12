@@ -168,5 +168,45 @@ body {
     max-width: 250px ;
     max-height: 150px;
     }
-   
+     
+  }
+
+  .popup {
+    display: none;
+    position: fixed;
+    top: 10%;
+    border: 1px solid #ccc;
+    padding: 10px;
+    background: #fff;
+    width: 30%;
+    height: 59%;
+    right: 0%;
+  }
+  
+  .popup-content {
+    max-height: 400px;
+    overflow-y: auto;
+  }
+  
+  .close {
+    color: #aaa;
+    float: left ;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+    border: 1px solid #ccc;
+    inline-size: 35px;
+    text-align: center;
+  }
+
+  #footerPopUpPanier {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-end;
+    height: 85%;
+  }
+
+  .itemFooterPanier {
+    margin: 10px;
   }
