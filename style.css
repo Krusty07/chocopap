@@ -159,9 +159,11 @@ body {
     margin-left: 11%;
     margin-right: 80px;
     margin-top: 10%;
-    p {
+}
+   .Card p {
         margin: 3px;
   }
+
 
   .imageCard {
     height: 50%;
@@ -169,7 +171,7 @@ body {
     max-height: 150px;
     }
      
-  }
+  
 
   .popup {
     display: none;
