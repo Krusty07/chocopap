@@ -1,7 +1,3 @@
-function addCart() {
-  console.log("hello");
-}
-
 // Fonction pour mélanger un tableau de manière aléatoire
 function shuffleArray(array) {
   for (let i = array.length - 1; i > 0; i--) {
@@ -10,17 +6,46 @@ function shuffleArray(array) {
   }
   return array;
 }
-function ajouterAuPanier(productId) {
+
+// function ajouterAuPanier(product) {
+//   // Récupérez le panier actuel depuis localStorage
+//   const panier = JSON.parse(localStorage.getItem("panier")) || [];
+//   const productId = event.currentTarget.getAttribute("data-id");
+//   const product = JSON.parse(event.currentTarget.getAttribute("data-product"));
+//   ajouterAuPanier(product);
+
+//   // Ajoutez le produit au panier
+//   panier.push(product);
+
+//   // Stockez le panier mis à jour dans localStorage
+//   localStorage.setItem("panier", JSON.stringify(panier));
+
+//   console.log(`Produit ajouté au panier : ${product.title}`);
+// }
+
+function ajouterAuPanier(event) {
+  let focusbutton = event.target;
+
+  let focusProductTitle = focusbutton.getAttribute("data-title");
+  let focusProductprice = focusbutton.getAttribute("data-price");
+  let focusProductimage = focusbutton.getAttribute("data-image");
+
+  let productObject = {
+    title: focusProductTitle,
+    price: focusProductprice,
+    image: focusProductimage,
+  };
+
   // Récupérez le panier actuel depuis localStorage
   const panier = JSON.parse(localStorage.getItem("panier")) || [];
 
-  // Ajoutez l'identifiant du produit au panier
-  panier.push(productId);
+  // Ajoutez le produit au panier
+  panier.push(productObject);
 
   // Stockez le panier mis à jour dans localStorage
   localStorage.setItem("panier", JSON.stringify(panier));
 
-  console.log(`Produit ajouté au panier avec l'identifiant ${productId}`);
+  console.log(`Produit ajouté au panier : ${focusProductTitle}`);
 }
 
 // POP-UP Panier ** Local Storage **
@@ -30,10 +55,20 @@ function ouvrirPopupPanier() {
 
   // Récupérez le panier depuis localStorage
   const panier = JSON.parse(localStorage.getItem("panier")) || [];
+  console.log(panier);
 
   // Affichez le contenu du panier
   if (panier.length > 0) {
-    contenuPanier.innerHTML = "Produits dans le panier : " + panier.join(", ");
+    // Utilisez une liste ou un autre élément pour afficher chaque produit
+
+    const listeProduits = panier.map((product) => {
+      return `<div>
+                <img class="imagePanier" src=${product.image} alt=${product.title}>
+                <span>${product.title}</span>
+              </div>`;
+    });
+
+    contenuPanier.innerHTML = listeProduits.join("");
   } else {
     contenuPanier.innerHTML = "Le panier est vide.";
   }
@@ -85,7 +120,7 @@ fetch("products.json")
         <p>${product.title}</p>
         <p>${product.price} €</p>
         <p>Note: ${product.note}</p>
-        <button class="addPanier" onclick="ajouterAuPanier(${product.id})" data-id="${product.id}">Ajouter au panier</button>
+        <button class="addPanier" onclick="ajouterAuPanier(event)" data-id="${product.id}" data-image =${product.image} data-title =${product.title}  data-price =${product.price}>Ajouter au panier</button>
         </div>
       `;
       productContainer.appendChild(productElement);
@@ -134,7 +169,11 @@ fetch("products.json")
             <p>${product.title}</p>
             <p>${product.price} €</p>
             <p>Note: ${product.note}</p>
-            <button class="addPanier" onclick="ajouterAuPanier(${product.id})" data-id="${product.id}">Ajouter au panier</button>
+            <button class="addPanier" onclick="ajouterAuPanier(${
+              product.id
+            })" data-id="${product.id}" data-product='${JSON.stringify(
+          product
+        )}>Ajouter au panier</button>
             </div>
         `;
         productContainer.appendChild(productElement);
@@ -162,10 +201,3 @@ fetch("products.json")
   .catch((error) => {
     console.error("Erreur lors de la requête fetch:", error);
   });
-
-// Fonction pour ajouter un produit au panier (à implémenter)
-// function ajouterAuPanier(productId) {
-//   // Vous devrez ajouter la logique pour ajouter le produit au panier ici
-//   // Par exemple, enregistrer l'identifiant du produit dans un tableau ou un objet
-//   console.log(`Produit ajouté au panier avec l'identifiant ${productId}`);
-// }
