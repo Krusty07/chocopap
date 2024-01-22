@@ -181,7 +181,7 @@ body {
     padding: 10px;
     background: #fff;
     width: 30%;
-    height: 59%;
+    height: 1000px;
     right: 0%;
   }
   
@@ -206,9 +206,38 @@ body {
     flex-direction: column;
     align-items: center;
     justify-content: flex-end;
-    height: 85%;
+    height: 200px;
   }
 
   .itemFooterPanier {
     margin: 10px;
+    display: flex;
+
   }
+
+  .imagePanier {
+    width: 100px;
+  }
+
+  .productsPanier {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+  }
+
+  .fa-trash:hover{
+    cursor: pointer;
+    color: #333;
+}
+
+.fa-solid{
+    color: red;
+}
+
+#contenu-panier {
+  height: 650px;
+  background-color: gray;
+  overflow: scroll;
+
+}

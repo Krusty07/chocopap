@@ -31,8 +31,13 @@
                 <h2 style="text-align: center;">PANIER</h2>
                 <div id="contenu-panier"></div>
                 <div id="footerPopUpPanier">
-                    <div id="totalPanier" class="itemFooterPanier">TOTAL : XX €</div>
-                    <button id="reinitialiserPanier" class="itemFooterPanier">REINITIALISER LE PANIER</button>
+                    <div class="itemFooterPanier">
+                        <div>TOTAL :</div>
+                        <div id="totalPanier"> €</div>
+                        <div> €</div>
+                    </div>
+                    <button id="reinitialiserPanier" onclick="clearCart()" class="itemFooterPanier">REINITIALISER LE
+                        PANIER</button>
                     <button id="validerPanier" class="itemFooterPanier">VALIDER LE PANIER</button>
                 </div>
 

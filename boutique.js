@@ -45,8 +45,16 @@ function ajouterAuPanier(event) {
   // Stockez le panier mis à jour dans localStorage
   localStorage.setItem("panier", JSON.stringify(panier));
 
+  ouvrirPopupPanier()
+
   console.log(`Produit ajouté au panier : ${focusProductTitle}`);
 }
+
+function clearCart() {
+  localStorage.clear()
+  ouvrirPopupPanier()
+}
+
 
 // POP-UP Panier ** Local Storage **
 function ouvrirPopupPanier() {
@@ -55,16 +63,17 @@ function ouvrirPopupPanier() {
 
   // Récupérez le panier depuis localStorage
   const panier = JSON.parse(localStorage.getItem("panier")) || [];
-  console.log(panier);
 
   // Affichez le contenu du panier
   if (panier.length > 0) {
     // Utilisez une liste ou un autre élément pour afficher chaque produit
 
     const listeProduits = panier.map((product) => {
-      return `<div>
+      return `<div class="productsPanier">
+                <span class="fa-solid fa-trash" onclick='delElement()'>X</span>
                 <img class="imagePanier" src=${product.image} alt=${product.title}>
                 <span>${product.title}</span>
+                <span>${product.price} €</span>
               </div>`;
     });
 
@@ -74,7 +83,26 @@ function ouvrirPopupPanier() {
   }
 
   popupPanier.style.display = "block";
+
+  // Calcul montant total panier
+  let prixTotalCalcul = [];
+
+  for (let m = 0; m < panier.length; m++) {
+    let prixProduitsDansLePanier = parseFloat(panier[m].price);
+    prixTotalCalcul.push(prixProduitsDansLePanier);
+  }
+
+  const initialValue = 0;
+  const prixTotal = prixTotalCalcul.reduce(
+    (accumulator, currentValue) => accumulator + currentValue,
+    initialValue
+  );
+
+  console.log(prixTotal);
+  document.getElementById("totalPanier").innerHTML = prixTotal.toFixed(2);
 }
+
+
 
 // Fonction pour fermer le popup du panier
 function fermerPopupPanier() {
@@ -91,10 +119,11 @@ addPanierButtons.forEach((button) => {
     // Récupérez l'identifiant unique du produit associé au bouton
     const productId = event.currentTarget.getAttribute("data-id");
 
-    // // Ajoutez le produit au panier (vous devrez implémenter cette fonction)
-    // ajouterAuPanier(productId);
   });
 });
+
+
+
 
 // Récupérer les produits via Fetch
 fetch("products.json")
@@ -169,11 +198,7 @@ fetch("products.json")
             <p>${product.title}</p>
             <p>${product.price} €</p>
             <p>Note: ${product.note}</p>
-            <button class="addPanier" onclick="ajouterAuPanier(${
-              product.id
-            })" data-id="${product.id}" data-product='${JSON.stringify(
-          product
-        )}>Ajouter au panier</button>
+            <button class="addPanier" onclick="ajouterAuPanier(${product.id})" data-id="${product.id}" data-product='${JSON.stringify(product)}>Ajouter au panier</button>
             </div>
         `;
         productContainer.appendChild(productElement);
