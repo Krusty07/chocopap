@@ -29,11 +29,13 @@ function ajouterAuPanier(event) {
   let focusProductTitle = focusbutton.getAttribute("data-title");
   let focusProductprice = focusbutton.getAttribute("data-price");
   let focusProductimage = focusbutton.getAttribute("data-image");
+  let focusProductId = focusbutton.getAttribute("data-id");
 
   let productObject = {
     title: focusProductTitle,
     price: focusProductprice,
     image: focusProductimage,
+    id: focusProductId,
   };
 
   // Récupérez le panier actuel depuis localStorage
@@ -55,6 +57,22 @@ function clearCart() {
   ouvrirPopupPanier()
 }
 
+function delElement(event) {
+  let delElementBouton = event.target;
+  let papa = delElementBouton.parentElement.id
+
+  const panier = JSON.parse(localStorage.getItem("panier")) || [];
+  let index = panier.findIndex(product => product.id === papa);
+
+  panier.splice(index, 1)
+
+  localStorage.setItem("panier", JSON.stringify(panier));
+
+  ouvrirPopupPanier()
+}
+
+
+
 
 // POP-UP Panier ** Local Storage **
 function ouvrirPopupPanier() {
@@ -69,8 +87,8 @@ function ouvrirPopupPanier() {
     // Utilisez une liste ou un autre élément pour afficher chaque produit
 
     const listeProduits = panier.map((product) => {
-      return `<div class="productsPanier">
-                <span class="fa-solid fa-trash" onclick='delElement()'>X</span>
+      return `<div class="productsPanier" id="${product.id}">
+                <span class="fa-solid fa-trash" onclick='delElement(event)'>X</span>
                 <img class="imagePanier" src=${product.image} alt=${product.title}>
                 <span>${product.title}</span>
                 <span>${product.price} €</span>
@@ -100,6 +118,8 @@ function ouvrirPopupPanier() {
 
   console.log(prixTotal);
   document.getElementById("totalPanier").innerHTML = prixTotal.toFixed(2);
+
+
 }
 
 
