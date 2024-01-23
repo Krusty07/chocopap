@@ -4,18 +4,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Choco pap</title>
+    <title>Choco pap - Accueil</title>
     <link rel="stylesheet" href="style.css">
-    <!-- Link Swiper's CSS -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
-
 </head>
 
 <body>
     <!-- HEADER-->
     <div id="header">
         <div id="header-logo">
-            <a href="index.html"><img src="images/logo.png" alt="logo" width="70" height="70"></a>
+            <img src="images/logo.png" alt="logo" width="70" height="70">
         </div>
         <div id="header-right">
             <div class="text-style1">
@@ -24,9 +21,29 @@
             <div class="text-style1">
                 <p><a href="boutique.html">Boutique</a></p>
             </div>
-            <div class="panier">
-                <img src="images/panier.png" alt="panier" width="70" height="70">
+            <div class="text-style1" id="cartShow">
+                <span id="nombreProduitsPanier">0</span>
+                <img src="images/panier.png" onclick="ouvrirPopupPanier()" alt="panier" width="30" height="30">
             </div>
+            <div id="popup-panier" class="popup">
+                <div class="popup-content"></div>
+                <span class="close" onclick="fermerPopupPanier()">&times;</span>
+                <!-- Contenu du panier -->
+                <h2 style="text-align: center;">PANIER</h2>
+                <div id="contenu-panier"></div>
+                <div id="footerPopUpPanier">
+                    <div class="itemFooterPanier">
+                        <div>TOTAL :</div>
+                        <div id="totalPanier"> €</div>
+                        <div> €</div>
+                    </div>
+                    <button id="reinitialiserPanier" onclick="clearCart()" class="itemFooterPanier">REINITIALISER LE
+                        PANIER</button>
+                    <button id="validerPanier" class="itemFooterPanier">VALIDER LE PANIER</button>
+                </div>
+
+            </div>
+
         </div>
     </div>
     <!-- CAROUSSEL -->
@@ -78,6 +95,8 @@
             },
         });
     </script>
+    <script src="boutique.js"></script>
+
 </body>
 
 </html>

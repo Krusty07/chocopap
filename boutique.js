@@ -188,6 +188,7 @@ fetch("products.json")
     // Mélanger les produits de manière aléatoire
     const shuffledProducts = shuffleArray(data);
 
+
     // Afficher les produits dans le conteneur
     const productContainer = document.getElementById("product-container");
     shuffledProducts.forEach((product) => {
@@ -196,18 +197,45 @@ fetch("products.json")
         product.qt = 1;
       }
 
-      const productElement = document.createElement("span");
-      productElement.innerHTML = `
+      // Créer un lien autour du contenu du produit
+      const productLink = document.createElement("a");
+      productLink.href = "page-produit.html?id=" + product.id;
+      productLink.classList.add("product-link");
+
+      productLink.innerHTML = `
       <div class="Card">
         <img class="imageCard" src=${product.image}>
         <p>${product.title}</p>
         <p>${product.price} €</p>
         <p>Note: ${product.note}</p>
-        <button class="addPanier" onclick="ajouterAuPanier(event)" data-id="${product.id}" data-image =${product.image} data-title =${product.title}  data-price =${product.price}>Ajouter au panier</button>
-        </div>
-      `;
-      productContainer.appendChild(productElement);
+        <button class="addPanier" onclick="ajouterAuPanier(event)" data-id="${product.id}" data-image=${product.image} data-title=${product.title} data-price=${product.price}>Ajouter au panier</button>
+      </div>
+    `;
+
+      // Ajouter le lien à l'élément du produit
+      productContainer.appendChild(productLink);
     });
+
+    // // Afficher les produits dans le conteneur
+    // const productContainer = document.getElementById("product-container");
+    // shuffledProducts.forEach((product) => {
+    //   // Vérifiez si la propriété 'qt' (quantité) existe, sinon attribuez-lui une valeur par défaut
+    //   if (!product.hasOwnProperty('qt')) {
+    //     product.qt = 1;
+    //   }
+
+    //   const productElement = document.createElement("span");
+    //   productElement.innerHTML = `
+    //   <div class="Card">
+    //     <img class="imageCard" src=${product.image}>
+    //     <p>${product.title}</p>
+    //     <p>${product.price} €</p>
+    //     <p>Note: ${product.note}</p>
+    //     <button class="addPanier" onclick="ajouterAuPanier(event)" data-id="${product.id}" data-image =${product.image} data-title =${product.title}  data-price =${product.price}>Ajouter au panier</button>
+    //     </div>
+    //   `;
+    //   productContainer.appendChild(productElement);
+    // });
 
     // Fonction appelée lorsque la case à cocher est cochée ou décochée
     function filtrerProduits() {
@@ -246,16 +274,53 @@ fetch("products.json")
       produitsFiltres.forEach((product) => {
         const productElement = document.createElement("span");
         productElement.classList.add("product");
-        productElement.innerHTML = `
-          <div class="Card">
-            <img class="imageCard" src=${product.image}>
-            <p>${product.title}</p>
-            <p>${product.price} €</p>
-            <p>Note: ${product.note}</p>
-            <button class="addPanier" onclick="ajouterAuPanier(${product.id})" data-id="${product.id}" data-product='${JSON.stringify(product)}>Ajouter au panier</button>
-            </div>
-        `;
+
+        // Créer un lien autour du contenu du produit
+        const productLink = document.createElement("a");
+        productLink.href = "page-produit.html?id=" + product.id;
+        productLink.classList.add("product-link");
+
+        productLink.innerHTML = `
+      <div class="Card">
+          <img class="imageCard" src=${product.image}>
+          <p>${product.title}</p>
+          <p>${product.price} €</p>
+          <p>Note: ${product.note}</p>
+          <button class="addPanier" onclick="ajouterAuPanier(${product.id})" data-id="${product.id}" data-product='${JSON.stringify(product)}'>Ajouter au panier</button>
+      </div>
+  `;
+
+        // Ajouter le lien à l'élément du produit
+        productElement.appendChild(productLink);
+
         productContainer.appendChild(productElement);
+      });
+      // // Afficher les produits filtrés dans le conteneur
+      // produitsFiltres.forEach((product) => {
+      //   const productElement = document.createElement("span");
+      //   productElement.classList.add("product");
+      //   productElement.innerHTML = `
+      //     <div class="Card">
+      //       <img class="imageCard" src=${product.image}>
+      //       <p>${product.title}</p>
+      //       <p>${product.price} €</p>
+      //       <p>Note: ${product.note}</p>
+      //       <button class="addPanier" onclick="ajouterAuPanier(${product.id})" data-id="${product.id}" data-product='${JSON.stringify(product)}>Ajouter au panier</button>
+      //       </div>
+      //   `;
+      //   productContainer.appendChild(productElement);
+      // });
+
+      // Gestionnaire d'événements pour le clic sur l'image du produit
+      document.getElementById("product.image").addEventListener("click", function () {
+        // Rediriger vers la page produit en utilisant l'ID ou d'autres informations du produit
+        window.location.href = "page-produit.html?id=123"; // Remplacez 123 par l'ID du produit
+      });
+
+      // Gestionnaire d'événements pour le clic sur le nom du produit
+      document.getElementById("productName").addEventListener("click", function () {
+        // Rediriger vers la page produit en utilisant l'ID ou d'autres informations du produit
+        window.location.href = "page-produit.html?id=123"; // Remplacez 123 par l'ID du produit
       });
     }
 
