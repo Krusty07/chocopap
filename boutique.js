@@ -145,11 +145,11 @@ function ouvrirPopupPanier() {
   document.getElementById("totalPanier").innerHTML = prixTotal.toFixed(2);
 
   // Mettez à jour le nombre de produits dans le panier
-  const nombreProduitsDansLePanier = panier.reduce((total, product) => total + product.qt, 0);
+  const nombreProduitsDansLePanier = panier.reduce((total, product) => total + parseInt(product.qt), 0);
   document.getElementById("nombreProduitsPanier").innerHTML = nombreProduitsDansLePanier;
-
-
 }
+
+
 
 
 
