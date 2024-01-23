@@ -41,8 +41,21 @@ function ajouterAuPanier(event) {
   // Récupérez le panier actuel depuis localStorage
   const panier = JSON.parse(localStorage.getItem("panier")) || [];
 
-  // Ajoutez le produit au panier
-  panier.push(productObject);
+  // Vérifiez si l'article est déjà dans le panier
+  let existingProduct = panier.find(product => product.id === focusProductId);
+
+  if (existingProduct) {
+    // L'article est déjà présent, incrémente la quantité
+    existingProduct.qt += 1;
+  } else {
+    // L'article n'est pas dans le panier, ajoutez-le
+    productObject.qt = 1;  // Ajoutez la propriété qt (quantité)
+    panier.push(productObject);
+  }
+
+
+  // // Ajoutez le produit au panier
+  // panier.push(productObject);
 
   // Stockez le panier mis à jour dans localStorage
   localStorage.setItem("panier", JSON.stringify(panier));
@@ -71,6 +84,16 @@ function delElement(event) {
   ouvrirPopupPanier()
 }
 
+function updateQuantity(productId, newQuantity) {
+  const panier = JSON.parse(localStorage.getItem("panier")) || [];
+  const productIndex = panier.findIndex((product) => product.id === productId);
+
+  if (productIndex !== -1) {
+    panier[productIndex].qt = newQuantity;
+    localStorage.setItem("panier", JSON.stringify(panier));
+    ouvrirPopupPanier(); // Met à jour le contenu du panier après la modification de la quantité
+  }
+}
 
 
 
@@ -92,7 +115,9 @@ function ouvrirPopupPanier() {
                 <img class="imagePanier" src=${product.image} alt=${product.title}>
                 <span>${product.title}</span>
                 <span>${product.price} €</span>
-              </div>`;
+                <input type="number" id="${product.id}-quantity" value="${product.qt}" min="1" max="100" 
+                oninput='updateQuantity("${product.id}", this.value)' />
+                </div>`;
     });
 
     contenuPanier.innerHTML = listeProduits.join("");
@@ -107,7 +132,7 @@ function ouvrirPopupPanier() {
 
   for (let m = 0; m < panier.length; m++) {
     let prixProduitsDansLePanier = parseFloat(panier[m].price);
-    prixTotalCalcul.push(prixProduitsDansLePanier);
+    prixTotalCalcul.push(prixProduitsDansLePanier * panier[m].qt);
   }
 
   const initialValue = 0;
@@ -118,6 +143,10 @@ function ouvrirPopupPanier() {
 
   console.log(prixTotal);
   document.getElementById("totalPanier").innerHTML = prixTotal.toFixed(2);
+
+  // Mettez à jour le nombre de produits dans le panier
+  const nombreProduitsDansLePanier = panier.reduce((total, product) => total + product.qt, 0);
+  document.getElementById("nombreProduitsPanier").innerHTML = nombreProduitsDansLePanier;
 
 
 }
@@ -162,6 +191,11 @@ fetch("products.json")
     // Afficher les produits dans le conteneur
     const productContainer = document.getElementById("product-container");
     shuffledProducts.forEach((product) => {
+      // Vérifiez si la propriété 'qt' (quantité) existe, sinon attribuez-lui une valeur par défaut
+      if (!product.hasOwnProperty('qt')) {
+        product.qt = 1;
+      }
+
       const productElement = document.createElement("span");
       productElement.innerHTML = `
       <div class="Card">

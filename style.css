@@ -57,7 +57,7 @@ body {
 }
 
 #header img {
-    margin: 20px;
+    margin: 10px;
 }
 
 #social-network img {
@@ -240,4 +240,10 @@ body {
   background-color: gray;
   overflow: scroll;
 
+}
+
+#cartShow {
+  display: flex;
+  align-items: center;
+  padding-left: 20px;
 }
