@@ -13,6 +13,9 @@ body {
     width: 100%;
 
 }
+.content {
+  background-color: #FFFFFF;
+}
 
 .product-details {
     background-color: #FFFFFF;
@@ -248,10 +251,10 @@ body {
   padding-left: 20px;
 }
 
-a {
+/* a {
   text-decoration: none;
   color: black;
-}
+} */
 
 /* CSS page produit */
 
